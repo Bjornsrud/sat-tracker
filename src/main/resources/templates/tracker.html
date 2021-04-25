@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Real-time Satellite Tracker</title>
+    <title>Hvor er ISS nå? | ckb78.no</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js" ></script>
     <script src="http://code.jquery.com/jquery-2.0.3.min.js"> </script>
@@ -12,11 +12,11 @@
     }
 
     body {
-     background-image: linear-gradient(to bottom, black , darkblue);
+     background: black;
     }
 
     main {
-      background: white;
+      background: black;
       max-width: 1010px;
       padding: 30px 30px;
       padding-top: 10px;
@@ -25,15 +25,19 @@
     }
 
     h1 {
+        color: white;
+    }
 
+    h3 {
+        color: white;
     }
     </style>
 </head>
 <body>
 <main>
-    <h1>Sat-Tracker v. 0.1</h1>
-    <h3><span th:text="'Current satellite: ' + ${satellite}"></span></h3>
-    <h4><span th:text="'Datasource: ' + ${url}"></span></h4>
+    <center><h1>Hvor er Den Internasjonale Romstasjonen(ISS) akkurat nå?</h1></center>
+
+
 <div align="center" id="map" style="width:950px;height:440px"></div> <!-- Put in flexbox-->
 </main>
 <script th:inline="javascript">
@@ -74,7 +78,7 @@
 				}).error(function() {
 					L.popup()
 					.setLatLng(L.latLng(latitude, longitude))
-					.setContent(/*[[${url}]]*/ '<p>Connection error!<br/>API unavailable.</p>')  // Get message from Thymeleaf model. Perhaps: "Error connecting to api at: emdpoint.
+					.setContent(/*[[${url}]]*/ '<p>Connection error!<br/>API unavailable.</p>')  // Få message fra thymeleaf model? Kanskje: "Error connecting to api at: endpoint.
 					.openOn(map);
 
 					setPosition(latitude, longitude);
@@ -100,7 +104,7 @@
 		function connectionErrorPopup() {
 					L.popup()
 					.setLatLng(L.latLng(latitude, longitude))
-					.setContent('<p>Connection error!<br/>API unavailable.</p>')  // Get message from Thymeleaf model. Perhaps: "Error connecting to api at: emdpoint.
+					.setContent('<p>Connection error!<br/>API unavailable.</p>')  // Få message fra thymeleaf model? Kanskje: "Error connecting to api at: endpoint.
 					.openOn(map);
 
 					setPosition(latitude, longitude);
@@ -108,5 +112,9 @@
 
 		updatePositionalMarker();
 		</script>
+    <center>
+        <h3>Posisjonsdata fra: http://api.open-notify.org/iss-now.json</h3>
+        <h3>Kartdata fra: https://www.basemaps.cartocdn.com (openstreetmap.org)</h3>
+    </center>
 </body>
 </html>
